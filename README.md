@@ -290,14 +290,12 @@ Sources
 
 🔐 API Keys
 
-Create a .env file:
+The application automatically uses built-in API keys configured in the `.env` file:
 
 GROQ_API_KEY=your_groq_api_key
 TAVILY_API_KEY=your_tavily_api_key
 
-Do not commit .env to GitHub.
-
-The Streamlit application also supports entering API keys at runtime.
+The Streamlit user interface uses these built-in API keys automatically so users do not need to manually input or select API keys.
 
 💻 Local Installation
 

@@ -1,6 +1,10 @@
+import os
 from concurrent.futures import ThreadPoolExecutor, as_completed
+from dotenv import load_dotenv
 
 from tools.web_search import web_search
+
+load_dotenv()
 
 
 # ============================================================
@@ -9,7 +13,7 @@ from tools.web_search import web_search
 
 def search_single_query(
     query: str,
-    tavily_api_key: str
+    tavily_api_key: str | None = None
 ) -> list:
 
     print(
@@ -45,10 +49,12 @@ def search_single_query(
 def research_topic(
     topic: str,
     queries: list[str],
-    tavily_api_key: str
+    tavily_api_key: str | None = None
 ) -> list:
 
-    if not tavily_api_key:
+    api_key = tavily_api_key or os.getenv("TAVILY_API_KEY")
+
+    if not api_key:
 
         raise ValueError(
             "Tavily API key is missing."
@@ -88,7 +94,7 @@ def research_topic(
             future = executor.submit(
                 search_single_query,
                 query,
-                tavily_api_key
+                api_key
             )
 
             future_to_query[

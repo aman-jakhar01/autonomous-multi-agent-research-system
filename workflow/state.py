@@ -32,5 +32,5 @@ class ResearchState(TypedDict):
     max_research_rounds: int
 
     # Runtime API keys
-    groq_api_key: str
-    tavily_api_key: str
+    groq_api_key: str | None
+    tavily_api_key: str | None

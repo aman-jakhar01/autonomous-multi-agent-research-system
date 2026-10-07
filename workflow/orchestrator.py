@@ -29,9 +29,9 @@ def query_planner_node(
 
         queries = generate_research_queries(
             topic=state["topic"],
-            groq_api_key=state[
+            groq_api_key=state.get(
                 "groq_api_key"
-            ]
+            )
         )
 
     # --------------------------------------------------------
@@ -118,9 +118,9 @@ def research_node(
     sources = research_topic(
         topic=state["topic"],
         queries=queries,
-        tavily_api_key=state[
+        tavily_api_key=state.get(
             "tavily_api_key"
-        ]
+        )
     )
 
     # --------------------------------------------------------
@@ -195,9 +195,9 @@ def analysis_node(
     result = analyze_research(
         topic=state["topic"],
         sources=state["sources"],
-        groq_api_key=state[
+        groq_api_key=state.get(
             "groq_api_key"
-        ]
+        )
     )
 
     print(
@@ -291,9 +291,9 @@ def validation_node(
     result = validate_claims(
         claims=state["claims"],
         sources=state["sources"],
-        groq_api_key=state[
+        groq_api_key=state.get(
             "groq_api_key"
-        ]
+        )
     )
 
     print(
@@ -384,9 +384,9 @@ def writer_node(
 
         sources=state["sources"],
 
-        groq_api_key=state[
+        groq_api_key=state.get(
             "groq_api_key"
-        ]
+        )
     )
 
     print(

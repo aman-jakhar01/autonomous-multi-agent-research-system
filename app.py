@@ -1,7 +1,14 @@
-import streamlit as st
+import os
 from datetime import datetime
+import streamlit as st
+from dotenv import load_dotenv
 
 from workflow.orchestrator import build_workflow
+
+load_dotenv()
+
+groq_api_key = os.getenv("GROQ_API_KEY", "")
+tavily_api_key = os.getenv("TAVILY_API_KEY", "")
 
 
 # ============================================================
@@ -85,37 +92,6 @@ st.markdown(
 # ============================================================
 
 with st.sidebar:
-
-    # --------------------------------------------------------
-    # API CONFIGURATION
-    # --------------------------------------------------------
-
-    st.header("🔐 API Configuration")
-
-    st.caption(
-        "Enter your API keys for this session."
-    )
-
-    groq_api_key = st.text_input(
-        "Groq API Key",
-        type="password",
-        placeholder="gsk_...",
-        help="Your Groq API key.",
-    )
-
-    tavily_api_key = st.text_input(
-        "Tavily API Key",
-        type="password",
-        placeholder="tvly-...",
-        help="Your Tavily API key.",
-    )
-
-    st.caption(
-        "🔒 API keys are used only during this session "
-        "and are not written to the .env file."
-    )
-
-    st.divider()
 
     # --------------------------------------------------------
     # RESEARCH SETTINGS
@@ -256,7 +232,7 @@ if start_research:
     if not groq_api_key.strip():
 
         st.error(
-            "❌ Please enter your Groq API key."
+            "❌ Built-in Groq API key is missing. Please set GROQ_API_KEY in .env."
         )
 
         st.stop()
@@ -264,7 +240,7 @@ if start_research:
     if not tavily_api_key.strip():
 
         st.error(
-            "❌ Please enter your Tavily API key."
+            "❌ Built-in Tavily API key is missing. Please set TAVILY_API_KEY in .env."
         )
 
         st.stop()
